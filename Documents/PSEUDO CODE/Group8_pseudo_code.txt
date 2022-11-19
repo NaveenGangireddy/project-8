@@ -1,0 +1,221 @@
+CLIENT;
+
+/*Start:Show the Menu for login,register and exit
+option->takes user choice*/
+STEP 1: 
+start
+{	print(select an option:
+		1. register
+		2. login
+		3. exit)
+}
+STEP 2:
+switch(option){
+case 1: Login : /*It takes Existing valid username and password as inputs
+		otherwise pop ups error*/
+	Login{
+		print("welcome to login")
+		print("enter user name : ")
+		scan(user_name)
+		Read_File(Users.txt)
+		if( user_name != exists)
+		{
+			print("Opps! user not exist. Please enter a valid username")
+			Repeat STEP 1
+		}
+		else{
+			print("enter password : ")
+			scan(pass_word)
+			Read_File(Users.txt)
+		If(user_name & pass_word != exists)
+		{	
+			print("Sorry, Enter a valid Password")
+		}
+		else{
+			print("login in Successfully")
+			continue;
+		}
+	    }
+			
+
+case 2: Register: /*It takes username and password for new users*/
+
+	Register{
+		print("enter user name : ")
+		scan(user_name)
+		if( user_name == exists)
+		{
+			print("user is already registered
+				Try again with different user name")
+			Repeat STEP 1
+		}
+		else{	
+			print("enter password to register : ")
+			scan(pass_word)
+			Write_to_file(user_name, pass_word)
+		}
+
+	
+
+case 3: Exit:/*Terminate Program......*/
+	
+	Exit{
+		print("Thank you for choosing us!
+			Have a nice day........!!")
+	    }
+}
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+
+
+void send_file(int sockfd,FILE *fp,char filename)
+{
+	send(filename)
+	while(true){  /*An infinite loop will run until entire file received*/
+	read(data,fp) /*read each line from file*/
+	if(data != NULL)
+	{
+		send_status=send(data)
+
+		if(send_status<0)
+			print("Error in sending the file")
+			return
+	}
+	else
+		print("File sended successfully");
+		return
+	}
+}
+
+void write_file(int sockfd)
+{
+	recv(filename)
+	Intialise file_pointer fptr  /*intialise and open a file*/
+	while(true)
+	{
+		read_status=recv(data)
+		if(read_status<0)
+			break;
+		write_to_file(data)
+	}
+	print("Download Completed")
+}
+
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+connect()
+/*Connection forms with server using Server's port Address.
+If connection fails,print error message "Connection failed."*/
+
+Connect()
+	{
+	create clientsocket;/*using socket()*/
+	if(clientsocket <  0)
+		{ print("creation of client socket failed") }
+	if(connect(client socket, server_address, sizeof(server_address)<0)
+	{
+		print("connection error")
+	}
+	else
+	{
+		print("connection established")
+	}
+}
+
+Show menu
+ 1.Upload file/*to upload enter signal ctrl+c*/
+ 2.Download file/*to download enter signal ctrl+z*/
+ 3.Delete file/*to Delete enter signal ctrl+d*/
+ 4.Display /*to display enter signal ctrl+f*/
+ 5.Access control
+
+option-> Takes user choice
+
+switch(option)
+{
+case 1: upload()
+{
+
+	send_to_server("upload")/*send upload message to server*/
+	scan(filename)
+	FILE *fptr=open(filename)
+	If(fptr_open())
+		goto send_file(sockfd,fptr,filename)
+	else 
+		print("File cannot be open.")
+}
+
+case 2: download()
+{
+	send_to_server("download")/*send download message to server*/
+	goto write_file(sockfd);
+}
+
+case 3: delete()
+{
+	send filename to server.
+	If file doesn't exist, print "File not found!"
+	else print "File deletion Succesful".
+}
+
+case 4: display():list the file names of particular user
+
+case 5: Access_Control()
+{
+	changes file acess from public to private and viceversa.
+}
+}
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+Server:
+
+main()
+	{
+	create serverSocket;/*using socket()*/
+	if(serverSocket <  0)
+		{ print("creation of client socket failed")
+	}
+
+	bind_status = bind(ServerSocket,port)/*binds the server socket with particular port number*/
+	if(bind_status<0)
+	{
+		print("Socket binding has failed")
+	}
+
+	listen_status=listen(serverSocket,5)  /*listen for incoming connection requests from client*/
+	if(listen_status<0)
+		print("Listening faied")
+	else
+		print("....waiting for connectioms....")
+
+	if(connect(client socket, server_address, sizeof(server_address)<0)
+	{
+		print("connection error")
+	}
+	else
+	{
+		print("connection established")
+	}
+}
+
+read_status=recv_from_client(data)
+if(data == "upload")
+{
+	goto write_file();
+}
+else if(data == "download")
+{
+	goto send_file();
+}
+
+
+delete()
+{
+if (file_name==exists)
+{delete filename from database}
+else {
+(print "File not found!")
+}
+} 
